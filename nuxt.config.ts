@@ -2,10 +2,9 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
   // ssr:false,
-  routeRules: {
-    // '/api/**': { proxy: "https://api.staging.voomgle.com/**" }
-    // '/api/**': { cors: true }
-  }
+  // routeRules: {
+  //   '/api/**': { proxy: "https://api.staging.voomgle.com/**" }
+  // },
 
   // nitro: {
   //   devProxy: {
@@ -17,5 +16,23 @@ export default defineNuxtConfig({
   //     },
   //   }
   // }
+
+
+  // vite: {
+  //   server: {
+  //     proxy: {
+  //       '/': {
+  //         target: 'https://api.staging.voomgle.com',
+  //         changeOrigin: true,
+  //       },
+  //       '/api': {
+  //         target: 'https://api.staging.voomgle.com/api',
+  //         changeOrigin: true,
+  //         rewrite: (path) => path.replace(/^\/api/, ''),
+  //       },
+  //     },
+  //   },
+  // },
+
   
 })
