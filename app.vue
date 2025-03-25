@@ -93,7 +93,7 @@
 
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-
+import { useNuxtApp } from "#app";
 const email = ref("");
 const password = ref("");
 const rememberMe = ref(false);
@@ -101,43 +101,50 @@ const loading = ref(false);
 const errorMessage = ref("");
 const router = useRouter();
 
-const handleLogin = async () => {
-  console.log("testz");
-  try {
-    const data = await $fetch("/api/login", {
-      method: "POST",
-      body: {
-        email: email.value,
-        password: password.value,
-      },
-    });
-    console.log("Login successful:", data);
-  } catch (error) {
-    console.error("Login error:", error);
-  }
-};
-
 const emails = ref("maeldev3@gmail.com");
 const passwords = ref("password");
 
-const login = async () => {
-  const { data, error } = await useFetch(
-    "https://api.staging.voomgle.com/api/login",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: {
-        email: emails.value,
-        password: passwords.value,
-      },
-    }
-  );
+const handleLogin = async () => {
+  const { $api } = useNuxtApp();  // Récupère ton fetch personnalisé
+    
+      try {
+        const response = await $api('login', {
+          method: 'POST',
+          body: JSON.stringify({
+          email: email.value,
+          password: password.value,
+      }),
+        });
+    
+        console.log("Réponse de connexion:", response);
 
-  console.log(data.value);
+     
+    
+      } catch (error) {
+        console.error("Erreur lors de la connexion:", error);
+      } finally {
+      }
 };
 
-login();
+// const login = async () => {
+//   const { data, error } = await useFetch(
+//     "https://api.staging.voomgle.com/api/login",
+//     {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//         Accept: "application/json",
+//       },
+//       body: {
+//         email: emails.value,
+//         password: passwords.value,
+//       },
+//     }
+//   );
+
+//   console.log(data.value);
+// };
+
+// login();
+
 </script>
